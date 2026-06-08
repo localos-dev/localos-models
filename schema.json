@@ -1,0 +1,86 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LocalOS Model Catalog",
+  "description": "Schema for models.json — the LocalOS community model catalog.",
+  "type": "object",
+  "required": [
+    "version",
+    "updated",
+    "models"
+  ],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Catalog format version (semver)."
+    },
+    "updated": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the catalog was last updated (YYYY-MM-DD)."
+    },
+    "models": {
+      "type": "array",
+      "description": "List of available models.",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "family",
+          "vramMB",
+          "contextTokens",
+          "category",
+          "tags",
+          "description"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "MLC model ID, used to load the model with WebLLM."
+          },
+          "name": {
+            "type": "string",
+            "description": "Short human-readable name shown in the UI."
+          },
+          "family": {
+            "type": "string",
+            "description": "Model family name (Llama, Qwen, Gemma, Phi, Mistral, Hermes, etc.)."
+          },
+          "vramMB": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Approximate VRAM or RAM required in megabytes."
+          },
+          "contextTokens": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Maximum context window in tokens."
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "nano",
+              "small",
+              "medium",
+              "large"
+            ],
+            "description": "Size category: nano under 1 GB, small 1 to 2.5 GB, medium 2.5 to 4.5 GB, large 4.5 GB and up."
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Optional tags such as recommended, coding, multilingual, reasoning."
+          },
+          "description": {
+            "type": "string",
+            "description": "One or two sentence description shown to the user."
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
